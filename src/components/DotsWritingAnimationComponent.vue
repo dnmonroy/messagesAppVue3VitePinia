@@ -1,5 +1,5 @@
 <template>
-    <div class="dotsAnimationWrapper" style="width: 100px">
+    <div class="flex flex-row items-center justify-start" style="width: 100px">
         <div style="padding-right: 4px">Writing</div>
         <div class="typing" style="margin-bottom: 3px">
             <span></span>
@@ -18,13 +18,6 @@
 $dot-width: 5px;
 $dot-color: #3b5998;
 $speed: 1.2s;
-
-.dotsAnimationWrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  align-items: center;
-}
 
 .typing {
   position: relative;

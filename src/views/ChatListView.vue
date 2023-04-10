@@ -4,6 +4,7 @@
         <div v-for="(item,index) in userMockup"
              class="msg" :class="[{online : item.online}, {active : activeChat === item.id}]"
              @click="setActiveChat(item.id)">
+
             <img class="msg-profile" :src="baseImage"
                  alt="" v-if="!item.isGroup"/>
 
