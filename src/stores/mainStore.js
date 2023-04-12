@@ -4,6 +4,7 @@ import { useUserMockup } from "@/shared/mockups";
 import axios from "axios";
 import Message from "@/models/message";
 import { useScrollToBottom } from "@/shared/utils";
+const IS_DEVELOP = import.meta.env.VITE_DEVELOP;
 
 export const useMainStore = defineStore("mainStore", () => {
   //state
@@ -29,8 +30,13 @@ export const useMainStore = defineStore("mainStore", () => {
     //set the second person writing indicator
     getChatById(idChat).writing = true;
     return new Promise((resolve, reject) => {
+      const HTTP_API_BASE =
+        JSON.parse(IS_DEVELOP.toLowerCase()) === true
+          ? `http://api.brainshop.ai/get?bid=174074&key=5OZ0b0cQwjbb7EkK&uid=[uid]&msg='${message.text}'`
+          : `http://localhost:5173/api${message.text}`;
+
       axios
-        .get(`http://localhost:5173/api${message.text}`, {
+        .get(HTTP_API_BASE, {
           headers: {
             Authorization: "Bearer ${accessToken}",
             "Content-Type": "application/json",
