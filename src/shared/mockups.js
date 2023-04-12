@@ -47,7 +47,7 @@ export const useUserMockup = [
     contactName: "Damian",
     avatarImg: "path",
     phoneNumber: 53068799,
-    writing: true,
+    writing: false,
     messages: [],
     online: true,
   },

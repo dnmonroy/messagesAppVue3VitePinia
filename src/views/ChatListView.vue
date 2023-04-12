@@ -18,9 +18,11 @@
                 <div class="msg-content">
                     <dots-writing-animation-component v-if="item.writing"/>
                     <span class="msg-message"
-                          v-if="!item.writing">{{lastMessage(item).text}}</span>
+                          v-if="!item.writing && item.messages.length > 0">{{lastMessage(item).text}}</span>
                     <span class="msg-date"
-                          v-if="!item.writing">{{lastMessage(item).dateSend}}</span>
+                          v-if="!item.writing && item.messages.length > 0">{{lastMessage(item).dateSend}}</span>
+                    <span class="msg-date"
+                          v-if="!item.writing && !item.messages.length > 0">No messages</span>
                 </div>
 
             </div>

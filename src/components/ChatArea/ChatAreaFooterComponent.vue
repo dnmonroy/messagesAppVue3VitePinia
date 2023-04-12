@@ -107,9 +107,27 @@ let textMessage = ref("");
 
 //methods
 const sendMessage = () => {
-  const message = new Message(textMessage.value, "21m", "", false, false, false);
-  processMessages(message,props.data.id).then(() => '');
-  textMessage.value = "";
+  if (isValidMessage()) {
+    const message = new Message(
+      textMessage.value,
+      "21m",
+      "",
+      false,
+      false,
+      false
+    );
+    processMessages(message, props.data.id).then(() => {
+    });
+    textMessage.value = "";
+  }
+};
+
+const isValidMessage = () => {
+  let flag = true;
+  if (textMessage.value.trim().length === 0) {
+    return false;
+  }
+  return flag;
 };
 </script>
 

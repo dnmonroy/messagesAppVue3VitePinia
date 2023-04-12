@@ -1,11 +1,11 @@
 <template>
-  <div class="chat-area" v-if="activeChat">
+  <div class="chat-area" id="chat-area" v-if="activeChat">
     <chat-area-header-component
       v-if="activeChatData.isGroup"
       :data="activeChatData"
     />
     <chat-area-main-component :data="activeChatData" />
-    <chat-area-footer-component :data="activeChatData"/>
+    <chat-area-footer-component :data="activeChatData" />
   </div>
   <div v-else class="flex h-full w-full items-center justify-center">
     Seleccione un contacto para comenzar a escribir...

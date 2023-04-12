@@ -1,10 +1,22 @@
 <template>
   <div v-if="!props.data.messages.length > 0">
-    <div class="flex justify-center items-center" style="height: 74vh">No hay mensajes...</div>
+    <div class="flex justify-center items-center" style="height: 74vh">
+      No hay mensajes...
+    </div>
   </div>
 
-  <div v-else class="chat-area-main">
-    <div v-for="(item, index) in props.data.messages">
+  <div v-else class="chat-area-main pt-2">
+    <button
+      @click="useScrollToTop()"
+      id="myBtn"
+      class="detail-button text-xs fixed bottom-0 mb-24 ml-80"
+      style="z-index: 99999; opacity: 0.6; pointer-events: auto"
+      title="Go to top"
+    >
+      Top
+    </button>
+
+    <div v-for="(item, index) in props.data.messages" :key="index">
       <div class="chat-msg" :class="[{ owner: item.isOwner }]">
         <div class="chat-msg-profile">
           <img
@@ -32,10 +44,56 @@
 </template>
 
 <script setup>
+import { onMounted, watch } from "vue";
+import {
+  useScrollToBottom,
+  useScrollToTop,
+  useShowAndHideScrollTopButton,
+} from "@/shared/utils";
+import { useMainStore } from "@/stores/mainStore";
+import { storeToRefs } from "pinia";
 
 const props = defineProps({
   data: Object,
 });
+
+//variable
+const store = useMainStore();
+const { activeChat } = storeToRefs(store);
+
+//watch
+watch(activeChat, () => {
+  setTimeout(() => {
+    useScrollToBottom(false);
+    useShowAndHideScrollTopButton();
+  }, 200);
+});
+
+//hooks
+onMounted(() => {
+  useScrollToBottom(false);
+  useShowAndHideScrollTopButton();
+});
 </script>
 
-<style scoped></style>
+<style scoped>
+#myBtn {
+  display: none; /* Hidden by default */
+  /*position: fixed; !* Fixed/sticky position *!*/
+  /*bottom: 20px; !* Place the button at the bottom of the page *!*/
+  /*right: 30px; !* Place the button 30px from the right *!*/
+  /*z-index: 99; !* Make sure it does not overlap *!*/
+  /*border: none; !* Remove borders *!*/
+  /*outline: none; !* Remove outline *!*/
+  /*background-color: var(--button-color);*/
+  /*!* Set a background color *!*/
+  /*color: white; !* Text color *!*/
+  /*cursor: pointer; !* Add a mouse pointer on hover *!*/
+  padding: 10px 20px 10px 20px; /* Some padding */
+  /*border-radius: 10px; !* Rounded corners *!*/
+}
+
+#myBtn:hover {
+  opacity: 1 !important;
+}
+</style>

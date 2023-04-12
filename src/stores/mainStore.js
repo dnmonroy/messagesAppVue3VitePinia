@@ -3,6 +3,7 @@ import { computed, ref } from "vue";
 import { useUserMockup } from "@/shared/mockups";
 import axios from "axios";
 import Message from "@/models/message";
+import { useScrollToBottom } from "@/shared/utils";
 
 export const useMainStore = defineStore("mainStore", () => {
   //state
@@ -19,8 +20,14 @@ export const useMainStore = defineStore("mainStore", () => {
     activeChat.value = id;
   };
 
+  const getChatById = (idChat) => {
+    return userMockup.value.filter((chat) => chat.id === idChat)[0];
+  };
+
   const processMessages = async (message, idChat) => {
     addMessageToList(message, idChat, true);
+    //set the second person writing indicator
+    getChatById(idChat).writing = true;
     return new Promise((resolve, reject) => {
       axios
         .get(`http://localhost:5173/api${message.text}`, {
@@ -47,18 +54,18 @@ export const useMainStore = defineStore("mainStore", () => {
           addMessageToList(botMessage, idChat, false);
           resolve(response);
         })
-        .catch((error) => reject(error));
+        .catch((error) => reject(error))
+        .finally(() => (getChatById(idChat).writing = false));
     });
   };
 
   const addMessageToList = (message, idChat, isOwner) => {
-    //currentChat
-    const chat = userMockup.value.filter((chat) => chat.id === idChat)[0];
     //last object message of chat
-    const lastObjectMessage = chat.messages[chat.messages.length - 1];
+    const lastObjectMessage =
+      getChatById(idChat).messages[getChatById(idChat).messages.length - 1];
     //if there aren't messages we create the first message
     if (!lastObjectMessage) {
-      chat.messages = [
+      getChatById(idChat).messages = [
         {
           isOwner: isOwner,
           messages: [message],
@@ -71,11 +78,14 @@ export const useMainStore = defineStore("mainStore", () => {
     }
     //is the message to add is not belong to the before message
     else {
-      chat.messages.push({
+      getChatById(idChat).messages.push({
         isOwner: isOwner,
         messages: [message],
       });
     }
+    setTimeout(()=>{
+      useScrollToBottom();
+    },100)
   };
 
   return {
