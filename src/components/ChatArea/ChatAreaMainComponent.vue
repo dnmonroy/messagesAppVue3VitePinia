@@ -6,15 +6,20 @@
   </div>
 
   <div v-else class="chat-area-main pt-2">
-    <button
-      @click="useScrollToTop()"
-      id="myBtn"
-      class="detail-button text-xs fixed bottom-0 mb-24 ml-80"
-      style="z-index: 99999; opacity: 0.6; pointer-events: auto"
-      title="Go to top"
+    <div
+      id="wrapperScrollTop"
+      class="absolute flex bottom-24 opacity-60 items-center justify-center text-xs"
     >
-      Top
-    </button>
+      <button
+        @click="useScrollToTop()"
+        id="myBtn"
+        class="text-xs rounded"
+        style="z-index: 99999; opacity: 0.6; pointer-events: auto"
+        title="Go to top"
+      >
+        Top
+      </button>
+    </div>
 
     <div v-for="(item, index) in props.data.messages" :key="index">
       <div class="chat-msg" :class="[{ owner: item.isOwner }]">
@@ -79,21 +84,32 @@ onMounted(() => {
 <style scoped>
 #myBtn {
   display: none; /* Hidden by default */
-  /*position: fixed; !* Fixed/sticky position *!*/
-  /*bottom: 20px; !* Place the button at the bottom of the page *!*/
-  /*right: 30px; !* Place the button 30px from the right *!*/
-  /*z-index: 99; !* Make sure it does not overlap *!*/
-  /*border: none; !* Remove borders *!*/
   /*outline: none; !* Remove outline *!*/
-  /*background-color: var(--button-color);*/
+  background-color: var(--button-color);
   /*!* Set a background color *!*/
-  /*color: white; !* Text color *!*/
+  color: white; /* Text color */
   /*cursor: pointer; !* Add a mouse pointer on hover *!*/
-  padding: 10px 20px 10px 20px; /* Some padding */
+  padding: 5px 20px 5px 20px; /* Some padding */
   /*border-radius: 10px; !* Rounded corners *!*/
 }
 
 #myBtn:hover {
   opacity: 1 !important;
+}
+
+#wrapperScrollTop {
+  width: calc(100% - 700px);
+}
+
+@media (max-width: 1120px) {
+  #wrapperScrollTop {
+    width: calc(100% - 344px);
+  }
+}
+
+@media (max-width: 780px) {
+  #wrapperScrollTop {
+    width: 100%;
+  }
 }
 </style>
