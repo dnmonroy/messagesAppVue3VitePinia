@@ -1,12 +1,12 @@
 <script setup>
-import {RouterView} from 'vue-router'</script>
+import { RouterView } from "vue-router";
+</script>
 
 <template>
-  <RouterView/>
+  <RouterView />
 </template>
 
 <style lang="scss">
-
 [data-theme="purple"] {
   --theme-color: #9f7aea;
   --button-color: #9f7aea;
@@ -31,9 +31,9 @@ import {RouterView} from 'vue-router'</script>
   --border-color: #323336;
   --body-color: #d1d1d2;
   --active-conversation-bg: linear-gradient(
-          to right,
-          rgba(47, 50, 56, 0.54),
-          rgba(238, 242, 244, 0) 100%
+    to right,
+    rgba(47, 50, 56, 0.54),
+    rgba(238, 242, 244, 0) 100%
   );
   --msg-hover-bg: rgba(47, 50, 56, 0.54);
   --chat-text-bg: #383b40;
@@ -41,17 +41,17 @@ import {RouterView} from 'vue-router'</script>
   --msg-date: #626466;
   --msg-message: var(--msg-date);
   --overlay-bg: linear-gradient(
-          to bottom,
-          rgba(0, 0, 0, 0) 0%,
-          #27292d 65%,
-          #27292d 100%
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    #27292d 65%,
+    #27292d 100%
   );
   --input-bg: #2f3236;
   --chat-header-bg: linear-gradient(
-          to bottom,
-          #27292d 0%,
-          #27292d 78%,
-          rgba(255, 255, 255, 0) 100%
+    to bottom,
+    #27292d 0%,
+    #27292d 78%,
+    rgba(255, 255, 255, 0) 100%
   );
   --settings-icon-color: #7c7e80;
   --developer-color: var(--border-color);
@@ -87,7 +87,6 @@ img {
 }
 
 body {
-
 }
 
 html {
@@ -781,6 +780,4 @@ html {
     }
   }
 }
-
-
 </style>

@@ -116,8 +116,7 @@ const sendMessage = () => {
       false,
       false
     );
-    processMessages(message, props.data.id).then(() => {
-    });
+    processMessages(message, props.data.id).then(() => {});
     textMessage.value = "";
   }
 };

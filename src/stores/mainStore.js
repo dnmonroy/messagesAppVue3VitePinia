@@ -83,9 +83,9 @@ export const useMainStore = defineStore("mainStore", () => {
         messages: [message],
       });
     }
-    setTimeout(()=>{
+    setTimeout(() => {
       useScrollToBottom();
-    },100)
+    }, 100);
   };
 
   return {

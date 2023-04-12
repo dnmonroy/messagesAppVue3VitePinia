@@ -18,7 +18,9 @@
         alt=""
       />
       <span>
-          +{{ props.data.members > 3 ? props.data.members - 3 : props.data.members }}
+        +{{
+          props.data.members > 3 ? props.data.members - 3 : props.data.members
+        }}
       </span>
     </div>
   </div>

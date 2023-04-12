@@ -1,10 +1,10 @@
 <template>
   <div class="app">
-    <header-component/>
+    <header-component />
     <div class="wrapper">
-      <chat-list-view/>
-      <chat-message-view/>
-      <chat-detail-view/>
+      <chat-list-view />
+      <chat-message-view />
+      <chat-detail-view />
     </div>
   </div>
 </template>
@@ -16,5 +16,4 @@ import ChatDetailView from "@/views/ChatDetailView.vue";
 import HeaderComponent from "@/components/HeaderComponent.vue";
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>
