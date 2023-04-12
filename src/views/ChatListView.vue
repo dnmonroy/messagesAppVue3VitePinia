@@ -12,12 +12,15 @@
 
                 <div class="msg-username">{{ item.contactName }}</div>
 
+                <div v-if="item.messages.length > 0" >
+                </div>
+
                 <div class="msg-content">
                     <dots-writing-animation-component v-if="item.writing"/>
                     <span class="msg-message"
-                          v-if="!item.writing">{{ item.messages[item.messages.length - 1].text }}</span>
+                          v-if="!item.writing">{{lastMessage(item).text}}</span>
                     <span class="msg-date"
-                          v-if="!item.writing">{{ item.messages[item.messages.length - 1].dateSend }}</span>
+                          v-if="!item.writing">{{lastMessage(item).dateSend}}</span>
                 </div>
 
             </div>
@@ -65,6 +68,11 @@ const {setActiveChat} = store
 //computed
 const baseImage = computed(() => {
     return image
+})
+
+//methods
+const lastMessage = ( item =>{
+    return item.messages[item.messages.length - 1].messages[item.messages[item.messages.length - 1].messages.length -1]
 })
 
 </script>
