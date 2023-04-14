@@ -15,6 +15,7 @@
         />
       </svg>
     </div>
+    <button class="btn btn-sm btn-showChatList">as</button>
     <div class="search-bar">
       <input type="text" placeholder="Search..." />
     </div>
@@ -47,7 +48,24 @@
           />
         </svg>
       </div>
-      <img class="account-profile user-profile" :src="baseImage" alt="" />
+
+      <div class="dropdown dropdown-end">
+        <img
+          tabindex="0"
+          class="account-profile user-profile"
+          :src="baseImage"
+          alt=""
+        />
+        <div
+          tabindex="0"
+          class="dropdown-content card card-compact w-64 p-2 shadow-2xl bg-primary text-primary-content"
+        >
+          <div class="card-body">
+            <h3 class="card-title">Card title!</h3>
+            <p>you can use any element as a dropdown.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>

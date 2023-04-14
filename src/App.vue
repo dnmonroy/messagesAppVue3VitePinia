@@ -531,8 +531,9 @@ html {
   font-weight: 500;
 
   svg {
-    width: 18px;
+    width: 40px;
     margin-right: 10px;
+    height: 40px;
   }
 
   &:last-child {
@@ -580,7 +581,7 @@ html {
   display: flex;
 
   svg {
-    width: 16px;
+    width: 40px;
     margin-left: auto;
   }
 }
@@ -613,7 +614,9 @@ html {
   align-items: center;
 
   svg {
-    width: 16px;
+    margin-top: 15px;
+    height: 40px;
+    width: 25px;
   }
 }
 
@@ -761,6 +764,10 @@ html {
   }
 }
 
+.btn-showChatList{
+  display: none !important;
+}
+
 @media (max-width: 1120px) {
   .detail-area {
     display: none;
@@ -768,9 +775,18 @@ html {
 }
 
 @media (max-width: 780px) {
+  .logo {
+    display: none;
+  }
+
+  .btn-showChatList{
+    display: block !important;
+  }
+
   .conversation-area {
     display: none;
   }
+
   .search-bar {
     margin-left: 0;
     flex-grow: 1;

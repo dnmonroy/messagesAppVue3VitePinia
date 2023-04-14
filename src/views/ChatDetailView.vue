@@ -1,6 +1,6 @@
 <template>
-  <div class="detail-area">
-    <div class="detail-area-header">
+  <div class="detail-area" v-if="activeChat">
+      <div class="detail-area-header">
       <div class="msg-profile group">
         <svg
           viewBox="0 0 24 24"
@@ -16,9 +16,20 @@
           <path d="M2 15.5l10-7 10 7M12 2v6.5" />
         </svg>
       </div>
-      <div class="detail-title">CodePen Group</div>
-      <div class="detail-subtitle">Created by Aysenur, 1 May 2020</div>
-      <div class="detail-buttons">
+
+      <div class="detail-title">
+        {{
+          activeChatData.isGroup
+            ? activeChatData.groupName
+            : activeChatData.contactName
+        }}
+      </div>
+
+      <div class="detail-subtitle">
+        {{ activeChatData.isGroup ? "Group" : "Contact" }}
+      </div>
+
+      <div class="detail-buttons h-20">
         <button class="detail-button">
           <svg
             viewbox="0 0 24 24"
@@ -34,7 +45,7 @@
               d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"
             />
           </svg>
-          Call Group
+          {{ activeChatData.isGroup ? "Call group" : "Call contact" }}
         </button>
         <button class="detail-button">
           <svg
@@ -50,10 +61,11 @@
             <path d="M23 7l-7 5 7 5V7z" />
             <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
           </svg>
-          Video Chat
+          Video chat
         </button>
       </div>
     </div>
+
     <div class="detail-changes">
       <input type="text" placeholder="Search in Conversation" />
       <div class="detail-change">
@@ -65,6 +77,7 @@
           <div class="color orange" data-color="orange"></div>
         </div>
       </div>
+
       <div class="detail-change">
         Change Emoji
         <svg
@@ -83,6 +96,7 @@
         </svg>
       </div>
     </div>
+
     <div class="detail-photos">
       <div class="detail-photo-title">
         <svg
@@ -142,33 +156,22 @@
       </div>
       <div class="view-more">View More</div>
     </div>
-    <a href="https://twitter.com/AysnrTrkk" class="follow-me" target="_blank">
-      <span class="follow-text">
-        <svg
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          stroke-width="2"
-          fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="css-i6dzq1"
-        >
-          <path
-            d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"
-          ></path>
-        </svg>
-        Follow me on Twitter
-      </span>
-      <span class="developer">
-        <img
-          src="https://pbs.twimg.com/profile_images/1253782473953157124/x56UURmt_400x400.jpg"
-        />
-        Aysenur Turk — @AysnrTrkk
-      </span>
-    </a>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { useMainStore } from "@/stores/mainStore";
+import { storeToRefs } from "pinia";
+import { computed } from "vue";
+
+//variables
+const store = useMainStore();
+const { activeChat, userMockup } = storeToRefs(store);
+
+//computed
+const activeChatData = computed(() => {
+  return userMockup.value.filter((user) => user.id === activeChat.value)[0];
+});
+</script>
 
 <style scoped></style>
