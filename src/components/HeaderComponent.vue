@@ -32,24 +32,9 @@
           <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
         </svg>
       </div>
-      <div class="settings">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <circle cx="12" cy="12" r="3" />
-          <path
-            d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"
-          />
-        </svg>
-      </div>
 
-      <div class="dropdown dropdown-end">
+      <div class="dropdown dropdown-end"
+           :class="[{'dropdown-open' : dropdownOpenFlag}]">
         <img
           tabindex="0"
           class="account-profile user-profile"
@@ -61,8 +46,20 @@
           class="dropdown-content card card-compact w-64 p-2 shadow-2xl bg-primary text-primary-content"
         >
           <div class="card-body">
-            <h3 class="card-title">Card title!</h3>
-            <p>you can use any element as a dropdown.</p>
+            <h3 class="card-title">Hello {{ userMockupMain.contactName }}</h3>
+            <p>
+              In the future you will find account configuration options here.
+            </p>
+            <div class="w-full">
+              <button
+                v-if="!clearingFlag"
+                class="btn text-white w-full"
+                @click="handleClearAll"
+              >
+                Close
+              </button>
+              <progress v-else class="progress w-56"></progress>
+            </div>
           </div>
         </div>
       </div>
@@ -71,13 +68,42 @@
 </template>
 
 <script setup>
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 import image from "@/assets/profile.png";
+import { useMainStore } from "@/stores/mainStore";
+import { storeToRefs } from "pinia";
+import {useRouter} from "vue-router";
 
+//variables
+const store = useMainStore();
+const { userMockupMain } = storeToRefs(store);
+const { clearAll } = store;
+const clearingFlag = ref(false);
+const dropdownOpenFlag = ref(false);
+const router = useRouter()
+
+//computed
 const baseImage = computed(() => {
-  return image;
+    return image;
 });
 
+
+//methods
+const handleClearAll = () => {
+  clearingFlag.value = true;
+  dropdownOpenFlag.value = true
+  setTimeout(() => {
+    clearAll();
+    clearingFlag.value = false;
+    setTimeout(()=>{
+        dropdownOpenFlag.value = false
+        //refresh page
+        router.go(0)
+    },400)
+  }, 2000);
+};
+
+//hooks
 onMounted(() => {
   const toggleButton = document.querySelector(".dark-light");
   const colors = document.querySelectorAll(".color");

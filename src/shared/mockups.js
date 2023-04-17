@@ -110,3 +110,9 @@ export const useUserMockup = [
     online: false,
   },
 ];
+
+export const mainUserMockup = {
+  contactName: "Robert",
+  avatarImg: "path",
+  online: true,
+}

@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
-import { useUserMockup } from "@/shared/mockups";
+import { useUserMockup, mainUserMockup } from "@/shared/mockups";
 import axios from "axios";
 import Message from "@/models/message";
 import { useScrollToBottom } from "@/shared/utils";
@@ -8,7 +8,12 @@ const IS_DEVELOP = import.meta.env.VITE_DEVELOP;
 
 export const useMainStore = defineStore("mainStore", () => {
   //state
-  const userMockup = ref(useUserMockup);
+  const userMockup =
+    localStorage.getItem("useUserMockup") !== undefined &&
+    localStorage.getItem("useUserMockup")
+      ? ref(JSON.parse(localStorage.getItem("useUserMockup")))
+      : ref(useUserMockup);
+  const userMockupMain = ref(mainUserMockup);
   const activeChat = ref(null);
 
   //getters
@@ -61,7 +66,10 @@ export const useMainStore = defineStore("mainStore", () => {
           resolve(response);
         })
         .catch((error) => reject(error))
-        .finally(() => (getChatById(idChat).writing = false));
+        .finally(() => {
+          getChatById(idChat).writing = false;
+          updateAll("useUserMockup", userMockup.value);
+        });
     });
   };
 
@@ -94,11 +102,25 @@ export const useMainStore = defineStore("mainStore", () => {
     }, 100);
   };
 
+  const clearAll = () => {
+    localStorage.clear();
+  };
+
+  const updateAll = (objectName, objectValue) => {
+    localStorage.setItem(objectName, JSON.stringify(objectValue));
+  };
+
+  const getAll = (objectName) => {
+    return JSON.parse(localStorage.getItem(objectName));
+  };
+
   return {
     userMockup,
+    userMockupMain,
     activeChat,
     totalUser,
     setActiveChat,
     processMessages,
+    clearAll,
   };
 });
