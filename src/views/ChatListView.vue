@@ -58,24 +58,79 @@
       </div>
     </div>
 
-      <a href="#add-contact" class="add"></a>
+    <label for="my-modal-3" @click="resetVariables" class="add"></label>
 
-      <div class="modal" id="add-contact">
-          <div class="modal-box">
-              <h3 class="font-bold text-lg">Congratulations random Internet user!</h3>
-              <p class="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
-              <div class="modal-action">
-                  <a href="#" class="btn">Yay!</a>
-              </div>
+    <input
+      type="checkbox"
+      v-model="test"
+      id="my-modal-3"
+      class="modal-toggle"
+    />
+    <div class="modal">
+      <div class="modal-box relative" style="width: 440px">
+        <label
+          for="my-modal-3"
+          class="btn btn-sm btn-circle absolute right-2 top-2"
+          >✕</label
+        >
+        <h3 class="font-bold text-lg mb-5">New contact</h3>
+        <div class="form-control">
+          <label class="input-group mb-2">
+            <span>Contact name</span>
+            <input
+              type="text"
+              v-model="newContact.contactName"
+              placeholder="Juanito"
+              class="input input-bordered"
+            />
+          </label>
+          <label class="input-group">
+            <span>Phone number</span>
+            <input
+              type="number"
+              v-model="newContact.phoneNumber"
+              placeholder="info@site.com"
+              class="input input-bordered"
+            />
+          </label>
+        </div>
+        <p class="py-4">Add new contacts to start chatting</p>
+
+        <div
+          class="alert alert-success shadow-lg"
+          :class="alertObject.class"
+          v-if="alertObject.show"
+        >
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="stroke-current flex-shrink-0 h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span>{{ alertObject.message }}</span>
           </div>
+        </div>
+
+        <div class="modal-action" @click="handleAddContact">
+          <a href="#" class="btn">Add</a>
+        </div>
       </div>
+    </div>
 
     <div class="overlay"></div>
   </div>
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import image from "@/assets/profile.png";
 import DotsWritingAnimationComponent from "@/components/DotsWritingAnimationComponent.vue";
 import { useMainStore } from "@/stores/mainStore";
@@ -84,9 +139,21 @@ import { storeToRefs } from "pinia";
 //store
 const store = useMainStore();
 const { activeChat, userMockup, totalUser } = storeToRefs(store);
-const { setActiveChat } = store;
+const { setActiveChat, addContact } = store;
 
 //variables
+const newContact = ref({
+  contactName: "",
+  phoneNumber: "",
+});
+
+const alertObject = ref({
+  class: "alert-success",
+  show: false,
+  message: "",
+});
+
+const test = ref(false);
 
 //computed
 const baseImage = computed(() => {
@@ -98,6 +165,31 @@ const lastMessage = (item) => {
   return item.messages[item.messages.length - 1].messages[
     item.messages[item.messages.length - 1].messages.length - 1
   ];
+};
+
+const handleAddContact = () => {
+  if (newContact.value.contactName && newContact.value.phoneNumber) {
+    const response = addContact(
+      newContact.value.contactName,
+      newContact.value.phoneNumber
+    );
+    alertObject.value.show = true;
+    alertObject.value.message = response.message;
+    if (response.status) alertObject.value.class = "alert-success";
+    else alertObject.value.class = "alert-error";
+
+    setTimeout(() => {
+      alertObject.value.show = true;
+    });
+  }
+};
+
+const resetVariables = () => {
+  alertObject.value = {
+    class: "alert-success",
+    show: false,
+    message: "",
+  };
 };
 </script>
 

@@ -114,6 +114,29 @@ export const useMainStore = defineStore("mainStore", () => {
     return JSON.parse(localStorage.getItem(objectName));
   };
 
+  const addContact = (contactName, phoneNumber) => {
+    const findRepeatedNumber = userMockup.value.find(user => user.phoneNumber === phoneNumber)
+    if (findRepeatedNumber)
+      return {message : 'There is already a user with the same phone number' , status : false}
+    else {
+      userMockup.value.unshift({
+        id: userMockup.value.length + 1,
+        contactName: contactName,
+        avatarImg: "path",
+        phoneNumber: phoneNumber,
+        writing: false,
+        messages: [],
+        online: true,
+      })
+      return  {message : 'Contact added successfully', status : true}
+    }
+
+  }
+
+  const addGroup = (groupName, members = []) => {
+
+  }
+
   return {
     userMockup,
     userMockupMain,
@@ -122,5 +145,6 @@ export const useMainStore = defineStore("mainStore", () => {
     setActiveChat,
     processMessages,
     clearAll,
+    addContact
   };
 });
