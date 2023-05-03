@@ -82,6 +82,7 @@ export const useMainStore = defineStore("mainStore", () => {
       getChatById(idChat).messages = [
         {
           isOwner: isOwner,
+          ownerId : idChat,
           messages: [message],
         },
       ];
@@ -94,6 +95,7 @@ export const useMainStore = defineStore("mainStore", () => {
     else {
       getChatById(idChat).messages.push({
         isOwner: isOwner,
+        ownerId : idChat,
         messages: [message],
       });
     }
@@ -122,7 +124,7 @@ export const useMainStore = defineStore("mainStore", () => {
       userMockup.value.unshift({
         id: userMockup.value.length + 1,
         contactName: contactName,
-        avatarImg: "path",
+        avatarImg: "emptyAvatar.png",
         phoneNumber: phoneNumber,
         writing: false,
         messages: [],
@@ -145,6 +147,7 @@ export const useMainStore = defineStore("mainStore", () => {
     setActiveChat,
     processMessages,
     clearAll,
-    addContact
+    addContact,
+    getChatById
   };
 });

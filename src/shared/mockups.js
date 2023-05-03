@@ -2,7 +2,7 @@ export const useUserMockup = [
   {
     id: 1,
     contactName: "Alvaro",
-    avatarImg: "path",
+    avatarImg: "2.png",
     phoneNumber: 53068799,
     writing: false,
     messages: [
@@ -10,33 +10,34 @@ export const useUserMockup = [
         isOwner: true,
         messages: [
           {
-            text: "Sit amet risus nullam eget felis eget. Dolor sed viverra ipsum😂😂😂?",
+            text: "Give me a hand with the css😂😂😂?",
             dateSend: "20m",
           },
           {
-            text: "How are you?",
+            text: "jejeje",
             img: "https://media0.giphy.com/media/yYSSBtDgbbRzq/giphy.gif?cid=ecf05e47344fb5d835f832a976d1007c241548cc4eea4e7e&rid=giphy.gif",
             dateSend: "20m",
           },
           { text: "How are you?", dateSend: "20m" },
-          { text: "How are you?", dateSend: "20m" },
+          { text: "test message\n", dateSend: "20m" },
         ],
       },
       {
         isOwner: false,
+        ownerId : 1,
         messages: [
           { text: "Fine", dateSend: "20m" },
-          { text: "Fine", dateSend: "20m" },
-          { text: "Fine", dateSend: "20m" },
-          { text: "Fine", dateSend: "20m" },
+          { text: "ok no problem", dateSend: "20m" },
+          { text: "I will help you in whatever it takes", dateSend: "20m" },
+          { text: "No problem\n", dateSend: "20m" },
         ],
       },
       {
         isOwner: true,
         messages: [
-          { text: "How are you?", dateSend: "20m" },
-          { text: "How are you?", dateSend: "20m" },
-          { text: "How are you?", dateSend: "20m" },
+          { text: "Thank you very much, my friend", dateSend: "20m" },
+          { text: "thanks for the help you are giving me", dateSend: "20m" },
+          { text: "I owe you one", dateSend: "20m" },
         ],
       },
     ],
@@ -45,7 +46,7 @@ export const useUserMockup = [
   {
     id: 2,
     contactName: "Damian",
-    avatarImg: "path",
+    avatarImg: "3.png",
     phoneNumber: 53068799,
     writing: false,
     messages: [],
@@ -54,12 +55,13 @@ export const useUserMockup = [
   {
     id: 3,
     contactName: "Geydi",
-    avatarImg: "path",
+    avatarImg: "1.png",
     phoneNumber: 53068799,
     writing: false,
     messages: [
       {
         isOwner: false,
+        ownerId  : 3,
         messages: [
           {
             text: "Sit amet risus nullam eget felis eget. Dolor sed viverra ipsum😂😂😂?",
@@ -74,7 +76,7 @@ export const useUserMockup = [
     id: 4,
     groupName: "Coders",
     isGroup: true,
-    avatarImg: "path",
+    avatarImg: "coderGroup.jpg",
     members: 513,
     writing: false,
     messages: [
@@ -93,12 +95,13 @@ export const useUserMockup = [
   {
     id: 5,
     contactName: "Alejandro",
-    avatarImg: "path",
+    avatarImg: "8.png",
     phoneNumber: 53068799,
     writing: false,
     messages: [
       {
         isOwner: false,
+        ownerId : 5,
         messages: [
           {
             text: "Sit amet risus nullam eget felis eget. Dolor sed viverra ipsum😂😂😂?",
@@ -113,6 +116,6 @@ export const useUserMockup = [
 
 export const mainUserMockup = {
   contactName: "Robert",
-  avatarImg: "path",
+  avatarImg: "4.png",
   online: true,
 }

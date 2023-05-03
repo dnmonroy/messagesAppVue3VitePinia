@@ -25,8 +25,15 @@
       <div class="chat-msg" :class="[{ owner: item.isOwner }]">
         <div class="chat-msg-profile">
           <img
+            v-if="!item.isOwner"
             class="chat-msg-img"
-            src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%283%29+%281%29.png"
+            :src="'/avatar/' + getAvatarByOwnerId(item.ownerId)"
+            alt=""
+          />
+          <img
+            v-else
+            class="chat-msg-img"
+            :src="'/avatar/' + userMockupMain.avatarImg"
             alt=""
           />
           <div class="chat-msg-date">Message seen 1.22pm</div>
@@ -64,7 +71,8 @@ const props = defineProps({
 
 //variable
 const store = useMainStore();
-const { activeChat } = storeToRefs(store);
+const { activeChat, userMockupMain } = storeToRefs(store);
+const { getChatById } = store;
 
 //watch
 watch(activeChat, () => {
@@ -73,6 +81,11 @@ watch(activeChat, () => {
     useShowAndHideScrollTopButton();
   }, 200);
 });
+
+//methods
+const getAvatarByOwnerId = (id) => {
+  return getChatById(id).avatarImg;
+};
 
 //hooks
 onMounted(() => {

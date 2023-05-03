@@ -6,7 +6,12 @@
       :class="[{ online: item.online }, { active: activeChat === item.id }]"
       @click="setActiveChat(item.id)"
     >
-      <img class="msg-profile" :src="baseImage" alt="" v-if="!item.isGroup" />
+      <img
+        class="msg-profile"
+        :src="'/avatar/' + item.avatarImg"
+        alt=""
+        v-if="!item.isGroup"
+      />
 
       <div class="msg-detail" v-if="!item.isGroup">
         <div class="msg-username">{{ item.contactName }}</div>
@@ -33,21 +38,12 @@
         </div>
       </div>
 
-      <div class="msg-profile group" v-if="item.isGroup">
-        <svg
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          stroke-width="2"
-          fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="css-i6dzq1"
-        >
-          <path d="M12 2l10 6.5v7L12 22 2 15.5v-7L12 2zM12 22v-6.5" />
-          <path d="M22 8.5l-10 7-10-7" />
-          <path d="M2 15.5l10-7 10 7M12 2v6.5" />
-        </svg>
-      </div>
+      <img
+        v-if="item.isGroup"
+        class="msg-profile group"
+        :src="'/avatar/' + item.avatarImg"
+        alt=""
+      />
 
       <div class="msg-detail" v-if="item.isGroup">
         <div class="msg-username">{{ item.groupName }}</div>

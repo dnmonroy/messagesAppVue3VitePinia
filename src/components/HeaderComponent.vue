@@ -33,12 +33,14 @@
         </svg>
       </div>
 
-      <div class="dropdown dropdown-end"
-           :class="[{'dropdown-open' : dropdownOpenFlag}]">
+      <div
+        class="dropdown dropdown-end"
+        :class="[{ 'dropdown-open': dropdownOpenFlag }]"
+      >
         <img
           tabindex="0"
           class="account-profile user-profile"
-          :src="baseImage"
+          :src="'/avatar/' + userMockupMain.avatarImg"
           alt=""
         />
         <div
@@ -72,7 +74,7 @@ import { computed, onMounted, ref } from "vue";
 import image from "@/assets/profile.png";
 import { useMainStore } from "@/stores/mainStore";
 import { storeToRefs } from "pinia";
-import {useRouter} from "vue-router";
+import { useRouter } from "vue-router";
 
 //variables
 const store = useMainStore();
@@ -80,26 +82,20 @@ const { userMockupMain } = storeToRefs(store);
 const { clearAll } = store;
 const clearingFlag = ref(false);
 const dropdownOpenFlag = ref(false);
-const router = useRouter()
-
-//computed
-const baseImage = computed(() => {
-    return image;
-});
-
+const router = useRouter();
 
 //methods
 const handleClearAll = () => {
   clearingFlag.value = true;
-  dropdownOpenFlag.value = true
+  dropdownOpenFlag.value = true;
   setTimeout(() => {
     clearAll();
     clearingFlag.value = false;
-    setTimeout(()=>{
-        dropdownOpenFlag.value = false
-        //refresh page
-        router.go(0)
-    },400)
+    setTimeout(() => {
+      dropdownOpenFlag.value = false;
+      //refresh page
+      router.go(0);
+    }, 400);
   }, 2000);
 };
 
